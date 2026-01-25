@@ -1,0 +1,587 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.app-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.app-nav {
+  background: var(--surface);
+  padding: 1.5rem;
+  border-bottom: 2px solid var(--border-color);
+  box-shadow: var(--shadow);
+}
+
+.app-main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.app-footer {
+  background: var(--surface);
+  padding: 1.5rem;
+  text-align: center;
+  border-top: 2px solid var(--border-color);
+  color: var(--text-secondary);
+  margin-top: auto;
+}
+
+/* Voice Control Styles */
+.voice-control {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.voice-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  justify-content: center;
+}
+
+.voice-button:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.voice-button:active {
+  transform: translateY(0);
+}
+
+.voice-button.listening {
+  background: var(--danger-color);
+  animation: pulse 2s infinite;
+}
+
+.voice-icon {
+  font-size: 1.5rem;
+}
+
+.listening-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #fef3c7;
+  border-radius: 6px;
+  color: #92400e;
+  font-weight: 500;
+}
+
+.pulse {
+  width: 12px;
+  height: 12px;
+  background: var(--danger-color);
+  border-radius: 50%;
+  animation: pulse-dot 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+.transcript {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--surface);
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  font-style: italic;
+}
+
+.error {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #fee2e2;
+  border: 2px solid var(--danger-color);
+  border-radius: 6px;
+  color: #991b1b;
+}
+
+.voice-help {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--surface);
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+}
+
+.voice-help summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.5rem;
+  user-select: none;
+}
+
+.voice-help summary:hover {
+  background: var(--background);
+  border-radius: 4px;
+}
+
+.voice-help ul {
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.voice-help li {
+  margin: 0.5rem 0;
+}
+
+/* Email Inbox Styles */
+.email-inbox {
+  background: var(--surface);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.inbox-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background: var(--surface);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.inbox-header h1 {
+  font-size: 1.75rem;
+  color: var(--text-primary);
+}
+
+.compose-button {
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.compose-button:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.email-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.email-item {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.email-item:hover {
+  background: var(--background);
+}
+
+.email-item:focus {
+  background: #eff6ff;
+}
+
+.email-item.selected {
+  background: #eff6ff;
+  border-left: 4px solid var(--primary-color);
+}
+
+.email-item.unread {
+  background: #f0f9ff;
+  font-weight: 500;
+}
+
+.email-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.email-from {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.email-date {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.email-subject {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.unread-indicator {
+  width: 10px;
+  height: 10px;
+  background: var(--unread-indicator);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.email-preview {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.delete-button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--danger-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.delete-button:hover {
+  background: #dc2626;
+}
+
+.empty-state {
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+/* Email Compose Styles */
+.email-compose {
+  background: var(--surface);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.email-compose h1 {
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.voice-input-button {
+  padding: 0.5rem 1rem;
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.voice-input-button:hover {
+  background: #475569;
+}
+
+input[type="email"],
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+input[type="email"]:focus,
+input[type="text"]:focus,
+textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 200px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.form-actions button {
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.form-actions button[type="button"] {
+  background: var(--secondary-color);
+  color: white;
+}
+
+.form-actions button[type="button"]:hover {
+  background: #475569;
+}
+
+.form-actions button[type="submit"] {
+  background: var(--primary-color);
+  color: white;
+}
+
+.form-actions button[type="submit"]:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Email Read Styles */
+.email-read {
+  background: var(--surface);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.email-read-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.email-read-header button {
+  padding: 0.75rem 1.5rem;
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.email-read-header button:hover {
+  background: #475569;
+}
+
+.email-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.email-actions button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.email-actions button:not(.delete-button) {
+  background: var(--primary-color);
+  color: white;
+}
+
+.email-actions button:not(.delete-button):hover {
+  background: var(--primary-hover);
+}
+
+.email-content {
+  color: var(--text-primary);
+}
+
+.email-meta {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--background);
+  border-radius: 6px;
+}
+
+.email-field {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.email-field:last-child {
+  margin-bottom: 0;
+}
+
+.email-field strong {
+  min-width: 80px;
+  color: var(--text-secondary);
+}
+
+.email-subject {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.email-body {
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.email-body p {
+  margin-bottom: 1rem;
+}
+
+.email-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-main {
+    padding: 1rem;
+  }
+
+  .app-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .inbox-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .email-item-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .email-read-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .email-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .email-actions button {
+    width: 100%;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: #000000;
+    --text-primary: #000000;
+    --text-secondary: #000000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
