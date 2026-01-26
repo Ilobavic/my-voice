@@ -11,7 +11,7 @@ class TextToSpeechService {
 
   speak(text, options = {}) {
     if (!this.synthesis) {
-      console.error('Speech synthesis not supported');
+      console.error("Speech synthesis not supported");
       return;
     }
 
@@ -19,10 +19,10 @@ class TextToSpeechService {
     this.stop();
 
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = options.rate || 1.0;
+    utterance.rate = options.rate || this.getStoredRate() || 1.0;
     utterance.pitch = options.pitch || 1.0;
     utterance.volume = options.volume || 1.0;
-    utterance.lang = options.lang || 'en-US';
+    utterance.lang = options.lang || this.getStoredLanguage() || "en-US";
 
     utterance.onstart = () => {
       this.isSpeaking = true;
@@ -35,7 +35,7 @@ class TextToSpeechService {
     };
 
     utterance.onerror = (event) => {
-      console.error('Speech synthesis error:', event);
+      console.error("Speech synthesis error:", event);
       this.isSpeaking = false;
       if (options.onError) options.onError(event);
     };
@@ -65,6 +65,28 @@ class TextToSpeechService {
 
   isAvailable() {
     return !!window.speechSynthesis;
+  }
+
+  setRate(rate) {
+    localStorage.setItem("tts_rate", rate.toString());
+  }
+
+  getStoredRate() {
+    const stored = localStorage.getItem("tts_rate");
+    return stored ? parseFloat(stored) : null;
+  }
+
+  setLanguage(lang) {
+    localStorage.setItem("tts_language", lang);
+  }
+
+  getStoredLanguage() {
+    return localStorage.getItem("tts_language");
+  }
+
+  getAvailableVoices() {
+    if (!this.synthesis) return [];
+    return this.synthesis.getVoices();
   }
 }
 

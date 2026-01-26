@@ -5,15 +5,26 @@
 class VoiceCommandHandler {
   constructor() {
     this.commands = {
-      'compose': ['compose', 'new email', 'write email', 'create email'],
-      'inbox': ['inbox', 'show inbox', 'go to inbox', 'my emails'],
-      'read': ['read', 'read email', 'open email'],
-      'send': ['send', 'send email'],
-      'delete': ['delete', 'delete email', 'remove email'],
-      'next': ['next', 'next email', 'next message'],
-      'previous': ['previous', 'previous email', 'last email'],
-      'stop': ['stop', 'stop listening', 'cancel'],
-      'help': ['help', 'what can I say', 'commands']
+      compose: [
+        "compose",
+        "new email",
+        "write email",
+        "create email",
+        "compose email",
+      ],
+      inbox: ["inbox", "show inbox", "go to inbox", "my emails", "read inbox"],
+      read: ["read", "read email", "open email"],
+      send: ["send", "send email"],
+      delete: ["delete", "delete email", "remove email"],
+      reply: ["reply", "reply to email", "respond"],
+      next: ["next", "next email", "next message"],
+      previous: ["previous", "previous email", "last email"],
+      stop: ["stop", "stop listening", "cancel"],
+      exit: ["exit", "quit", "close", "logout"],
+      help: ["help", "what can I say", "commands"],
+      search: ["search", "find email", "search inbox"],
+      "mark read": ["mark as read", "mark read"],
+      "mark unread": ["mark as unread", "mark unread"],
     };
   }
 
@@ -27,7 +38,7 @@ class VoiceCommandHandler {
           return {
             action,
             confidence: this.calculateConfidence(lowerText, keyword),
-            originalText: text
+            originalText: text,
           };
         }
       }
