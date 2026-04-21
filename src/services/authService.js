@@ -5,7 +5,20 @@
 class AuthService {
   constructor() {
     // Mock user storage (in production, this would be API calls)
-    this.users = []; // Demo: any email/password works
+    this.users = [
+      {
+        id: 1,
+        email: "demo@example.com",
+        password: "demo123",
+        name: "Demo User",
+      },
+      {
+        id: 2,
+        email: "test@example.com",
+        password: "test123",
+        name: "Test User",
+      },
+    ]; // Demo users for testing
 
     this.currentUser = null;
     this.loadSession();

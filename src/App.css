@@ -211,6 +211,136 @@
   margin: 0.5rem 0;
 }
 
+/* New Voice Feedback Styles */
+.interim-transcript {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: #e0f2fe;
+  border-left: 4px solid var(--primary-color);
+  border-radius: 4px;
+  color: #0c4a6e;
+  font-size: 0.9rem;
+}
+
+.interim-transcript em {
+  font-style: italic;
+  font-weight: 500;
+}
+
+.command-feedback {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #ecfdf5;
+  border: 2px solid var(--success-color);
+  border-radius: 6px;
+  color: #065f46;
+}
+
+.command-feedback strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.confidence-meter {
+  height: 8px;
+  background: #d1fae5;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0.5rem 0;
+  border: 1px solid var(--success-color);
+}
+
+.confidence-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #059669);
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.command-history {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--surface);
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+}
+
+.command-history summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.5rem;
+  user-select: none;
+  color: var(--primary-color);
+}
+
+.command-history summary:hover {
+  background: var(--background);
+  border-radius: 4px;
+}
+
+.history-list {
+  list-style: none;
+  margin-top: 0.75rem;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.history-item {
+  padding: 0.5rem;
+  margin: 0.25rem 0;
+  background: var(--background);
+  border-left: 3px solid #ddd;
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  animation: slideIn 0.3s ease;
+}
+
+.history-item.confidence-3 {
+  border-left-color: var(--success-color);
+  background: #ecfdf5;
+}
+
+.history-item.confidence-2 {
+  border-left-color: #f59e0b;
+  background: #fef3c7;
+}
+
+.history-item.confidence-1 {
+  border-left-color: var(--danger-color);
+  background: #fee2e2;
+}
+
+.history-command {
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: capitalize;
+}
+
+.history-time {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Listening text */
+.listening-text {
+  font-weight: 500;
+}
+
 /* Email Inbox Styles */
 .email-inbox {
   background: var(--surface);

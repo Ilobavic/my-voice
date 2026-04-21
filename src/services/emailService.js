@@ -22,7 +22,7 @@ class EmailService {
         from: "john.doe@example.com",
         to: "user@example.com",
         subject: "Welcome to Voice Email",
-        body: "This is a sample email to demonstrate the voice-controlled email system.",
+        body: "This is a sample email to demonstrate the voice-controlled email system. You can reply to this email or delete it. Try using voice commands to navigate!",
         date: new Date("2024-01-15T10:30:00"),
         read: false,
       },
@@ -31,7 +31,7 @@ class EmailService {
         from: "support@example.com",
         to: "user@example.com",
         subject: "System Update",
-        body: "Your account has been successfully updated. Thank you for using our service.",
+        body: "Your account has been successfully updated. Thank you for using our service. If you have any questions, please don't hesitate to contact our support team.",
         date: new Date("2024-01-14T14:20:00"),
         read: false,
       },
@@ -40,9 +40,36 @@ class EmailService {
         from: "newsletter@example.com",
         to: "user@example.com",
         subject: "Monthly Newsletter",
-        body: "Check out our latest updates and features in this month's newsletter.",
+        body: "Check out our latest updates and features in this month's newsletter. We've added several new improvements including enhanced accessibility features.",
         date: new Date("2024-01-13T09:15:00"),
         read: true,
+      },
+      {
+        id: 4,
+        from: "events@example.com",
+        to: "user@example.com",
+        subject: "Upcoming Webinar: Accessibility Best Practices",
+        body: "You're invited to our upcoming webinar on accessibility best practices. Join us on January 20th at 2 PM EST. Register now to secure your spot!",
+        date: new Date("2024-01-12T11:00:00"),
+        read: false,
+      },
+      {
+        id: 5,
+        from: "team@example.com",
+        to: "user@example.com",
+        subject: "Project Update",
+        body: "The team is making great progress on the new features. We've completed the voice input module and are now working on improving the command recognition accuracy.",
+        date: new Date("2024-01-11T16:45:00"),
+        read: true,
+      },
+      {
+        id: 6,
+        from: "admin@example.com",
+        to: "user@example.com",
+        subject: "Important: Password Reset Required",
+        body: "For security reasons, we require you to reset your password. Please follow the link below to complete this important security step.",
+        date: new Date("2024-01-10T08:30:00"),
+        read: false,
       },
     ];
   }
@@ -136,7 +163,7 @@ class EmailService {
     return new Promise(async (resolve, reject) => {
       try {
         const originalEmail = this.emails.find(
-          (e) => e.id === parseInt(emailId)
+          (e) => e.id === parseInt(emailId),
         );
         if (!originalEmail) {
           reject(new Error("Original email not found"));
@@ -202,7 +229,7 @@ class EmailService {
             email.subject.toLowerCase().includes(lowerQuery) ||
             email.body.toLowerCase().includes(lowerQuery) ||
             email.from.toLowerCase().includes(lowerQuery) ||
-            email.to.toLowerCase().includes(lowerQuery)
+            email.to.toLowerCase().includes(lowerQuery),
         );
         resolve(results.sort((a, b) => b.date - a.date));
       }, 200);

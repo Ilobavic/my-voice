@@ -1,9 +1,16 @@
-import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import emailService from "../services/emailService";
 import textToSpeech from "../services/textToSpeech";
 import voiceRecognition from "../services/voiceRecognition";
 
-function EmailInbox({ onSelectEmail, onCompose, onReply, ref }) {
+const EmailInbox = forwardRef(function EmailInbox(props, ref) {
+  const { onSelectEmail, onCompose, onReply } = props;
   const inboxRef = ref || useRef(null);
   const [emails, setEmails] = useState([]);
   const [filteredEmails, setFilteredEmails] = useState([]);
@@ -14,6 +21,12 @@ function EmailInbox({ onSelectEmail, onCompose, onReply, ref }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState("all"); // 'all', 'unread', 'read', 'today', 'this-week'
   const [searchMode, setSearchMode] = useState(false);
+
+  // Expose navigation methods through ref
+  useImperativeHandle(ref, () => ({
+    nextEmail: handleNextEmail,
+    previousEmail: handlePreviousEmail,
+  }));
 
   useEffect(() => {
     loadEmails();
@@ -369,6 +382,8 @@ function EmailInbox({ onSelectEmail, onCompose, onReply, ref }) {
       </div>
     </div>
   );
-}
+});
+
+EmailInbox.displayName = "EmailInbox";
 
 export default EmailInbox;

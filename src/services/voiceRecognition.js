@@ -25,6 +25,11 @@ class VoiceRecognitionService {
     this.recognition.interimResults = true;
     this.recognition.lang = "en-US";
 
+    this.recognition.onstart = () => {
+      this.isListening = true;
+      console.log("Voice recognition started");
+    };
+
     this.recognition.onresult = (event) => {
       let interimTranscript = "";
       let finalTranscript = "";
@@ -92,10 +97,12 @@ class VoiceRecognitionService {
 
     this.recognition.onend = () => {
       this.isListening = false;
+      console.log("Voice recognition ended");
     };
 
     this.recognition.onnomatch = () => {
       this.isListening = false;
+      console.warn("No speech match found");
       if (this.onErrorCallback) {
         this.onErrorCallback({
           code: "no-match",

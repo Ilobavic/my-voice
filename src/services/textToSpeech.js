@@ -15,33 +15,44 @@ class TextToSpeechService {
       return;
     }
 
+    if (!text || text.trim() === "") {
+      console.warn("Empty text provided to speech synthesis");
+      return;
+    }
+
     // Stop any current speech
     this.stop();
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = options.rate || this.getStoredRate() || 1.0;
-    utterance.pitch = options.pitch || 1.0;
-    utterance.volume = options.volume || 1.0;
-    utterance.lang = options.lang || this.getStoredLanguage() || "en-US";
+    try {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = options.rate || this.getStoredRate() || 1.0;
+      utterance.pitch = options.pitch || 1.0;
+      utterance.volume = options.volume || 1.0;
+      utterance.lang = options.lang || this.getStoredLanguage() || "en-US";
 
-    utterance.onstart = () => {
-      this.isSpeaking = true;
-      if (options.onStart) options.onStart();
-    };
+      utterance.onstart = () => {
+        this.isSpeaking = true;
+        console.log("Speech started");
+        if (options.onStart) options.onStart();
+      };
 
-    utterance.onend = () => {
-      this.isSpeaking = false;
-      if (options.onEnd) options.onEnd();
-    };
+      utterance.onend = () => {
+        this.isSpeaking = false;
+        console.log("Speech ended");
+        if (options.onEnd) options.onEnd();
+      };
 
-    utterance.onerror = (event) => {
-      console.error("Speech synthesis error:", event);
-      this.isSpeaking = false;
-      if (options.onError) options.onError(event);
-    };
+      utterance.onerror = (event) => {
+        console.error("Speech synthesis error:", event);
+        this.isSpeaking = false;
+        if (options.onError) options.onError(event);
+      };
 
-    this.currentUtterance = utterance;
-    this.synthesis.speak(utterance);
+      this.currentUtterance = utterance;
+      this.synthesis.speak(utterance);
+    } catch (error) {
+      console.error("Failed to speak:", error);
+    }
   }
 
   stop() {
