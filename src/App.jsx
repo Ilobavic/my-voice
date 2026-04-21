@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import VoiceControl from "./components/VoiceControl";
 import Login from "./components/Login";
 import EmailInbox from "./components/EmailInbox";
@@ -20,6 +20,7 @@ function App() {
     speechRate: 1.0,
     language: "en-US",
   });
+  const inboxRef = useRef(null);
 
   useEffect(() => {
     // Check if user is already logged in
@@ -31,7 +32,7 @@ function App() {
         `Welcome back ${
           authService.getCurrentUser().name ||
           authService.getCurrentUser().email
-        }. Say "Help" to learn available commands.`
+        }. Say "Help" to learn available commands.`,
       );
     } else {
       setView("login");
@@ -91,22 +92,20 @@ function App() {
       case "read":
         const emailNumber = voiceCommands.extractEmailNumber(originalText);
         if (emailNumber) {
-          // In a real app, you'd map this to actual email IDs
           setSelectedEmailId(emailNumber);
           setView("read");
           textToSpeech.speak(`Opening email ${emailNumber}`);
         } else {
           textToSpeech.speak(
-            "Please specify which email to read, for example, read email one"
+            "Please specify which email to read, for example, read email one",
           );
         }
         break;
 
       case "send":
         if (view === "compose") {
-          // Trigger send in compose component
           const sendButton = document.querySelector(
-            '.email-compose button[type="submit"]'
+            '.email-compose button[type="submit"]',
           );
           if (sendButton) {
             sendButton.click();
@@ -119,7 +118,7 @@ function App() {
       case "delete":
         if (view === "read" && selectedEmailId) {
           const deleteButton = document.querySelector(
-            ".email-read .delete-button"
+            ".email-read .delete-button",
           );
           if (deleteButton) {
             deleteButton.click();
@@ -130,11 +129,17 @@ function App() {
         break;
 
       case "next":
-        textToSpeech.speak("Next email feature coming soon");
+        if (inboxRef.current && inboxRef.current.nextEmail) {
+          inboxRef.current.nextEmail();
+          textToSpeech.speak("Moving to next email");
+        }
         break;
 
       case "previous":
-        textToSpeech.speak("Previous email feature coming soon");
+        if (inboxRef.current && inboxRef.current.previousEmail) {
+          inboxRef.current.previousEmail();
+          textToSpeech.speak("Moving to previous email");
+        }
         break;
 
       case "stop":
@@ -153,7 +158,7 @@ function App() {
       case "search":
         if (view === "inbox") {
           textToSpeech.speak(
-            "Please use the search box or say your search query"
+            "Please use the search box or say your search query",
           );
         }
         break;
@@ -172,13 +177,9 @@ function App() {
         }
         break;
 
-      case "stop":
-        textToSpeech.speak("Stopped");
-        break;
-
       case "help":
         textToSpeech.speak(
-          "Available commands: Compose, Inbox, Read Email, Send, Delete, Reply, Next, Previous, Search, Mark Read, Mark Unread, Exit, Stop, Help"
+          "Available commands: Compose, Inbox, Read Email, Send, Delete, Reply, Next, Previous, Search, Mark Read, Mark Unread, Exit, Stop, Help",
         );
         break;
 
@@ -264,6 +265,7 @@ function App() {
       <main className="app-main" role="main">
         {view === "inbox" && (
           <EmailInbox
+            ref={inboxRef}
             onSelectEmail={handleSelectEmail}
             onCompose={handleCompose}
             onReply={handleReply}

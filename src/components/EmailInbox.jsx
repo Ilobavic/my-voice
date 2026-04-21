@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import emailService from "../services/emailService";
 import textToSpeech from "../services/textToSpeech";
 import voiceRecognition from "../services/voiceRecognition";
 
-function EmailInbox({ onSelectEmail, onCompose, onReply }) {
+function EmailInbox({ onSelectEmail, onCompose, onReply, ref }) {
+  const inboxRef = ref || useRef(null);
   const [emails, setEmails] = useState([]);
   const [filteredEmails, setFilteredEmails] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -65,7 +66,7 @@ function EmailInbox({ onSelectEmail, onCompose, onReply }) {
         (email) =>
           email.subject.toLowerCase().includes(query) ||
           email.body.toLowerCase().includes(query) ||
-          email.from.toLowerCase().includes(query)
+          email.from.toLowerCase().includes(query),
       );
     }
 
@@ -146,7 +147,7 @@ function EmailInbox({ onSelectEmail, onCompose, onReply }) {
     textToSpeech.speak(
       `Email ${index + 1} of ${filteredEmails.length}. From ${
         email.from
-      }. Subject: ${email.subject}`
+      }. Subject: ${email.subject}`,
     );
   };
 
