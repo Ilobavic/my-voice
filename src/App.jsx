@@ -28,12 +28,7 @@ function App() {
       setUser(authService.getCurrentUser());
       setView("inbox");
       loadSettings();
-      textToSpeech.speak(
-        `Welcome back ${
-          authService.getCurrentUser().name ||
-          authService.getCurrentUser().email
-        }. Say "Help" to learn available commands.`,
-      );
+      textToSpeech.speak("Voice email system");
     } else {
       setView("login");
     }

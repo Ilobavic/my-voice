@@ -5,14 +5,7 @@
 class AuthService {
   constructor() {
     // Mock user storage (in production, this would be API calls)
-    this.users = [
-      {
-        id: 1,
-        email: "user@example.com",
-        password: "password123", // In production, this would be hashed
-        name: "John Doe",
-      },
-    ];
+    this.users = []; // Demo: any email/password works
 
     this.currentUser = null;
     this.loadSession();
@@ -47,7 +40,7 @@ class AuthService {
       const emailMatch = voiceEmail.match(/[\w\.-]+@[\w\.-]+\.\w+/);
       if (!emailMatch) {
         reject(
-          new Error("Could not recognize email address. Please try again.")
+          new Error("Could not recognize email address. Please try again."),
         );
         return;
       }
